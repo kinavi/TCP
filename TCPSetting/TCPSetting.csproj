@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1526E5ED-DA2F-42BC-9893-63729758856D}</ProjectGuid>
+    <ProjectGuid>{F96479AB-2A99-4DE0-8D39-2E026E36499A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TCPClient</RootNamespace>
-    <AssemblyName>TCPClient</AssemblyName>
+    <RootNamespace>TCPSetting</RootNamespace>
+    <AssemblyName>TCPSetting</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,17 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientProgram.cs" />
+    <Compile Include="Caregores.cs" />
+    <Compile Include="ClinetMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TCPSetting\TCPSetting.csproj">
-      <Project>{f96479ab-2a99-4de0-8d39-2e026e36499a}</Project>
-      <Name>TCPSetting</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

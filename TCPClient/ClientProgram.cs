@@ -41,8 +41,9 @@ namespace ConsoleClient
                             {
                                 if (stream.DataAvailable)
                                 {
+                                    Console.WriteLine("Сервер говорит!");
                                     Categores one = (Categores)formatter.Deserialize(stream);
-                                    Console.WriteLine("Категории");
+                                    Console.WriteLine("Категории: ");
                                     foreach (string s in one.ListNames)
                                     {
                                         Console.WriteLine(s);
