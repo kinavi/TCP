@@ -52,7 +52,7 @@ namespace ConsoleClient
                             }
                             break;
                         default:
-
+                            Console.WriteLine("Ошибка ввобда");
                             //Отправка запроса на меню
                             messenge = new ClinetMessage(TypeMasseng.GetMenu);
                             formatter.Serialize(stream, messenge);
@@ -72,7 +72,7 @@ namespace ConsoleClient
                                     while (stream.DataAvailable);
 
                                     string message = builder.ToString();
-                                    Console.WriteLine("Сервер: {0}", message);
+                                    Console.WriteLine("Сервер говорит! {0}", message);
                                     break;
                                 }
                             }

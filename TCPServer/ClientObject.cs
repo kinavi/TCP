@@ -13,7 +13,7 @@ namespace ConsoleServer
             client = tcpClient;
         }
 
-        private string menu = "Меню://n Categories - Получить список категорий. //n";
+        private string menu = "\nМеню:\n 1 - Получить список категорий. \n";
 
         public void Process()
         {
