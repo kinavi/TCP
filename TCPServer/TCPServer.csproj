@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Caregores.cs" />
     <Compile Include="ClientObject.cs" />
+    <Compile Include="ClinetMessage.cs" />
     <Compile Include="ServerProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

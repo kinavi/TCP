@@ -18,45 +18,55 @@ namespace ConsoleServer
         public void Process()
         {
             NetworkStream stream = null;
+            BinaryFormatter formatter = new BinaryFormatter();
+            ClinetMessage clinetMessage;
+
             try
             {
                 stream = client.GetStream();
                 byte[] data = new byte[64]; // буфер для получаемых данных
                 while (true)
                 {
-                    // Выводим меню
-                    data = Encoding.Unicode.GetBytes(menu);
-                    stream.Write(data, 0, data.Length);
+                    
 
-                    // получаем сообщение
-                    StringBuilder builder = new StringBuilder();
-                    int bytes = 0;
-                    do
+                    clinetMessage = (ClinetMessage)formatter.Deserialize(stream);
+
+                    switch (clinetMessage.type)
                     {
-                        bytes = stream.Read(data, 0, data.Length);
-                        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                    }
-                    while (stream.DataAvailable);
-
-                    string message = builder.ToString();
-
-                    Console.WriteLine(message);
-
-                    //-----
-                    switch(message)
-                    {
-                        case "Categories":
+                        case TypeMasseng.GetMenu:
+                            //// Выводим меню
+                            data = Encoding.Unicode.GetBytes(menu);
+                            stream.Write(data, 0, data.Length);
+                            break;
+                        case TypeMasseng.GetCategories:
                             Categores list = new Categores("Workout", "Paint");
-                            BinaryFormatter formatter = new BinaryFormatter();
+                            //BinaryFormatter formatter = new BinaryFormatter();
                             formatter.Serialize(stream, list);
                             break;
                         default:
                             // Сообщение о не верности ввода
-                            message = "Команда не верна, попробуйте еще.";
-                            data = Encoding.Unicode.GetBytes(message);
+                            string error = "Команда не верна, попробуйте еще.";
+                            data = Encoding.Unicode.GetBytes(error);
                             stream.Write(data, 0, data.Length);
                             break;
-                    }      
+                    }
+
+                    // получаем сообщение
+                    //StringBuilder builder = new StringBuilder();
+                    //int bytes = 0;
+                    //do
+                    //{
+                    //    bytes = stream.Read(data, 0, data.Length);
+                    //    builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+                    //}
+                    //while (stream.DataAvailable);
+
+                    //string message = builder.ToString();
+
+                    //Console.WriteLine(message);
+
+                    //-----
+                      
                     //-----
 
                     // отправляем обратно сообщение в верхнем регистре

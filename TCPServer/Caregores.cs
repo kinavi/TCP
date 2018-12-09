@@ -11,7 +11,6 @@ namespace ConsoleServer
     public class Categores
     {
         public List<String> ListNames { get; set; }
-        //public string Name { get; set; }
 
         public Categores(params string[] list)
         {

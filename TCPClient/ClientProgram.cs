@@ -19,52 +19,78 @@ namespace ConsoleClient
             {
                 client = new TcpClient(address, port);
                 NetworkStream stream = client.GetStream();
+                BinaryFormatter formatter = new BinaryFormatter();
+                ClinetMessage messenge;
+
+                string input;
 
                 while (true)
                 {
-                    //Сначала авторизация
-
-                    //получаем menu
-                    byte[] data = new byte[64]; // буфер для получаемых данных
-                    StringBuilder builder = new StringBuilder();
-                    int bytes = 0;
-                    do
-                    {
-                        bytes = stream.Read(data, 0, data.Length);
-                        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                    }
-                    while (stream.DataAvailable);
-
-                    string message = builder.ToString();
-                    Console.WriteLine("Сервер: {0}", message);
-
                     Console.Write(userName + ": ");
-                    // ввод сообщения
-                    message = Console.ReadLine();
-                    message = String.Format("{0}: {1}", userName, message);
-                    // преобразуем сообщение в массив байтов
-                    data = Encoding.Unicode.GetBytes(message);
+                    input = Console.ReadLine();
 
-                    
-
-
-                    // отправка сообщения
-                    stream.Write(data, 0, data.Length);
-
-                    //----
-                    //Catec
-                    // newPerson = (Person)formatter.Deserialize(fs);
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    Categores one = (Categores)formatter.Deserialize(stream);
-
-                    Console.WriteLine("Категории");
-                    foreach (string s in one.ListNames)
+                    switch (input)
                     {
-                        Console.WriteLine(s);
-                    }
+                        case "1":
+                            formatter = new BinaryFormatter();
 
+                            messenge = new ClinetMessage(TypeMasseng.GetCategories);
+                            formatter.Serialize(stream, messenge);
+
+                            while(true)
+                            {
+                                if (stream.DataAvailable)
+                                {
+                                    Categores one = (Categores)formatter.Deserialize(stream);
+                                    Console.WriteLine("Категории");
+                                    foreach (string s in one.ListNames)
+                                    {
+                                        Console.WriteLine(s);
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                        default:
+
+                            //Отправка запроса на меню
+                            messenge = new ClinetMessage(TypeMasseng.GetMenu);
+                            formatter.Serialize(stream, messenge);
+                            
+                            while(true)
+                            {
+                                if (stream.DataAvailable)
+                                {
+                                    byte[] data = new byte[64]; // буфер для получаемых данных
+                                    StringBuilder builder = new StringBuilder();
+                                    int bytes = 0;
+                                    do
+                                    {
+                                        bytes = stream.Read(data, 0, data.Length);
+                                        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+                                    }
+                                    while (stream.DataAvailable);
+
+                                    string message = builder.ToString();
+                                    Console.WriteLine("Сервер: {0}", message);
+                                    break;
+                                }
+                            }
+                            break;
+                    }
                     
-                    // ----
+                    //// ввод сообщения
+                    //string Inmessage = Console.ReadLine();
+                    ////Inmessage = String.Format("{0}: {1}", userName, Inmessage);
+                    //// преобразуем сообщение в массив байтов
+                    //data = Encoding.Unicode.GetBytes(Inmessage);
+
+                    //// отправка сообщения
+                    //stream.Write(data, 0, data.Length);
+                    //if(Inmessage=="1")
+                    //{
+                        
+                    //}
 
                     // получаем ответ
                     //data = new byte[64]; // буфер для получаемых данных
