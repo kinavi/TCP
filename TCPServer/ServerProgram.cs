@@ -5,11 +5,8 @@ using System.Threading;
 
 namespace ConsoleServer
 {
-    class Program
+    class ServerProgram
     {
-
-
-
         const int port = 8888;
         static TcpListener listener;
         static void Main(string[] args)
@@ -55,7 +52,7 @@ namespace ConsoleServer
 //namespace ConsoleServer
 //{
 
-//    class Program
+//    class ServerProgram
 //    {
 //        const int port = 8888;
 //        static TcpListener listener;
@@ -147,7 +144,7 @@ namespace ConsoleServer
 
 ////namespace SocketTcpServer
 ////{
-////    class Program
+////    class ServerProgram
 ////    {
 ////        static int port = 8005; // порт для приема входящих запросов
 ////        static void Main(string[] args)

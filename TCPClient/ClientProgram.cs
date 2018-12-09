@@ -6,7 +6,7 @@ using ConsoleServer;
 
 namespace ConsoleClient
 {
-    class Program
+    class ClientProgram
     {
         const int port = 8888;
         const string address = "127.0.0.1";
@@ -99,7 +99,7 @@ namespace ConsoleClient
 
 //namespace ConsoleClient
 //{
-//    class Program
+//    class ClientProgram
 //    {
 //        const int port = 8888;
 //        const string address = "127.0.0.1";
@@ -158,7 +158,7 @@ namespace ConsoleClient
 
 ////namespace SocketTcpClient
 ////{
-////    class Program
+////    class ClientProgram
 ////    {
 ////        // адрес и порт сервера, к которому будем подключаться
 ////        static int port = 8005; // порт сервера
