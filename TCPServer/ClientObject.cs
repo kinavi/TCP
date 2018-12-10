@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
-using System.Runtime.Serialization.Formatters.Binary;  
+using System.Runtime.Serialization.Formatters.Binary;
+using ProGaudi.Tarantool.Client;
+using System.Threading.Tasks;
+using ProGaudi.Tarantool.Client.Model;
+using ProGaudi.Tarantool.Client.Model.Enums;
 
 namespace ConsoleServer
 {
@@ -27,7 +31,7 @@ namespace ConsoleServer
                 byte[] data = new byte[64]; // буфер для получаемых данных
                 while (true)
                 {
-                    
+                    Test().GetAwaiter().GetResult();
 
                     clinetMessage = (ClinetMessage)formatter.Deserialize(stream);
 
@@ -65,6 +69,31 @@ namespace ConsoleServer
             }
         }
 
-        
+        static async Task Test()
+        {
+            //var box = await Box.Connect("127.0.0.1:3301");
+            //var schema = box.GetSchema();
+            //var space = await schema.GetSpace("examples");
+            //await space.Insert((99999, "BB"));
+            using (var box = await Box.Connect("operator:123123@localhost:3301"))
+            {
+                var schema = box.GetSchema();
+
+                var space = await schema.GetSpace("users");
+                var primaryIndex = await space.GetIndex("primary_id");
+
+                var data = await primaryIndex.Select<TarantoolTuple<string>,
+                    TarantoolTuple<string, string, string, string, long>>(
+                    TarantoolTuple.Create(String.Empty), new SelectOptions
+                    {
+                        Iterator = Iterator.All
+                    });
+
+                foreach (var item in data.Data)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
     }
 }
