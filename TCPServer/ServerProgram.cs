@@ -2,6 +2,10 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using ProGaudi.Tarantool.Client;
+using System.Threading.Tasks;
+using ProGaudi.Tarantool.Client.Model;
+using ProGaudi.Tarantool.Client.Model.Enums;
 
 namespace ConsoleServer
 {
@@ -9,8 +13,11 @@ namespace ConsoleServer
     {
         const int port = 8888;
         static TcpListener listener;
+
         static void Main(string[] args)
         {
+            Test().GetAwaiter().GetResult();
+
             try
             {
                 listener = new TcpListener(IPAddress.Parse("127.0.0.1"), port);
@@ -35,6 +42,32 @@ namespace ConsoleServer
             {
                 if (listener != null)
                     listener.Stop();
+            }
+        }
+        static async Task Test()
+        {
+            //var box = await Box.Connect("127.0.0.1:3301");
+            //var schema = box.GetSchema();
+            //var space = await schema.GetSpace("examples");
+            //await space.Insert((99999, "BB"));
+            using (var box = await Box.Connect("operator:123123@localhost:3301"))
+            {
+                var schema = box.GetSchema();
+
+                var space = await schema.GetSpace("users");
+                var primaryIndex = await space.GetIndex("primary_id");
+
+                var data = await primaryIndex.Select<TarantoolTuple<string>,
+                    TarantoolTuple<string, string, string, string, long>>(
+                    TarantoolTuple.Create(String.Empty), new SelectOptions
+                    {
+                        Iterator = Iterator.All
+                    });
+
+                foreach (var item in data.Data)
+                {
+                    Console.WriteLine(item);
+                }
             }
         }
     }

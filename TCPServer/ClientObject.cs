@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Binary;  
 
 namespace ConsoleServer
 {
@@ -50,29 +50,6 @@ namespace ConsoleServer
                             stream.Write(data, 0, data.Length);
                             break;
                     }
-
-                    // получаем сообщение
-                    //StringBuilder builder = new StringBuilder();
-                    //int bytes = 0;
-                    //do
-                    //{
-                    //    bytes = stream.Read(data, 0, data.Length);
-                    //    builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                    //}
-                    //while (stream.DataAvailable);
-
-                    //string message = builder.ToString();
-
-                    //Console.WriteLine(message);
-
-                    //-----
-                      
-                    //-----
-
-                    // отправляем обратно сообщение в верхнем регистре
-                    //message = message.Substring(message.IndexOf(':') + 1).Trim().ToUpper();
-                    //data = Encoding.Unicode.GetBytes(message);
-                    //stream.Write(data, 0, data.Length);
                 }
             }
             catch (Exception ex)
@@ -87,5 +64,7 @@ namespace ConsoleServer
                     client.Close();
             }
         }
+
+        
     }
 }
