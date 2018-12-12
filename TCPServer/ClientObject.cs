@@ -6,6 +6,7 @@ using ProGaudi.Tarantool.Client;
 using System.Threading.Tasks;
 using ProGaudi.Tarantool.Client.Model;
 using ProGaudi.Tarantool.Client.Model.Enums;
+using System.Collections.Generic;
 
 namespace ConsoleServer
 {
@@ -16,6 +17,8 @@ namespace ConsoleServer
         {
             client = tcpClient;
         }
+
+        private List<Category> categories = new List<Category>();
 
         private string menu = "\nМеню:\n 1 - Получить список категорий. \n";
 
@@ -31,8 +34,6 @@ namespace ConsoleServer
                 byte[] data = new byte[64]; // буфер для получаемых данных
                 while (true)
                 {
-                    Test().GetAwaiter().GetResult();
-
                     clinetMessage = (ClinetMessage)formatter.Deserialize(stream);
 
                     switch (clinetMessage.type)
@@ -43,9 +44,10 @@ namespace ConsoleServer
                             stream.Write(data, 0, data.Length);
                             break;
                         case TypeMasseng.GetCategories:
-                            Categores list = new Categores("Workout", "Paint");
-                            //BinaryFormatter formatter = new BinaryFormatter();
-                            formatter.Serialize(stream, list);
+                            RequestAllCategories().GetAwaiter().GetResult();
+                            //Categores list = new Categores("Workout", "Paint");
+                            ////BinaryFormatter formatter = new BinaryFormatter();
+                            formatter.Serialize(stream, categories);
                             break;
                         default:
                             // Сообщение о не верности ввода
@@ -69,29 +71,30 @@ namespace ConsoleServer
             }
         }
 
-        static async Task Test()
+        async Task RequestAllCategories()
         {
-            //var box = await Box.Connect("127.0.0.1:3301");
-            //var schema = box.GetSchema();
-            //var space = await schema.GetSpace("examples");
-            //await space.Insert((99999, "BB"));
-            using (var box = await Box.Connect("operator:123123@localhost:3301"))
+            using (var box = await Box.Connect("localhost:3301"))
             {
+                categories.Clear();
+
                 var schema = box.GetSchema();
 
-                var space = await schema.GetSpace("users");
-                var primaryIndex = await space.GetIndex("primary_id");
+                var space = await schema.GetSpace("categories");
+                var primaryIndex = await space.GetIndex("id");
 
-                var data = await primaryIndex.Select<TarantoolTuple<string>,
-                    TarantoolTuple<string, string, string, string, long>>(
-                    TarantoolTuple.Create(String.Empty), new SelectOptions
-                    {
-                        Iterator = Iterator.All
-                    });
-
-                foreach (var item in data.Data)
+                var data = await primaryIndex.Select<TarantoolTuple<int>, TarantoolTuple<int, string>>(TarantoolTuple.Create<int>(1), new SelectOptions
                 {
-                    Console.WriteLine(item);
+                    Iterator = Iterator.All
+                });
+
+                if (categories.Count == 0)
+                {
+                    categories = new List<Category>();
+
+                    foreach (var item in data.Data)
+                    {
+                        categories.Add(new Category { id = item.Item1, Name = item.Item2 });
+                    }
                 }
             }
         }

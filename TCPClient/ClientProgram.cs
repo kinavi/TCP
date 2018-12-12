@@ -3,6 +3,7 @@ using System;
 using System.Net.Sockets;
 using System.Text;
 using ConsoleServer;
+using System.Collections.Generic;
 
 namespace ConsoleClient
 {
@@ -10,6 +11,9 @@ namespace ConsoleClient
     {
         const int port = 8888;
         const string address = "127.0.0.1";
+
+        private List<Category> categories;
+
         static void Main(string[] args)
         {
             Console.Write("Введите свое имя:");
@@ -42,11 +46,11 @@ namespace ConsoleClient
                                 if (stream.DataAvailable)
                                 {
                                     Console.WriteLine("Сервер говорит!");
-                                    Categores one = (Categores)formatter.Deserialize(stream);
+                                    List<Category> categories = (List<Category>)formatter.Deserialize(stream);
                                     Console.WriteLine("Категории: ");
-                                    foreach (string s in one.ListNames)
+                                    foreach (Category c in categories)
                                     {
-                                        Console.WriteLine(s);
+                                        Console.WriteLine("{0}. - {1}",c.id,c.Name);
                                     }
                                     break;
                                 }

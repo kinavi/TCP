@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caregores.cs" />
+    <Compile Include="Category.cs" />
     <Compile Include="ClientObject.cs" />
     <Compile Include="ClinetMessage.cs" />
     <Compile Include="ServerProgram.cs" />
