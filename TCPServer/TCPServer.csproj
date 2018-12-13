@@ -125,15 +125,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caregores.cs" />
-    <Compile Include="Category.cs" />
     <Compile Include="ClientObject.cs" />
-    <Compile Include="ClinetMessage.cs" />
     <Compile Include="ServerProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyTCPLib\MyTCPLib.csproj">
+      <Project>{3d1af2b9-5580-4c0f-af99-d51745351a50}</Project>
+      <Name>MyTCPLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

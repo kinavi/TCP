@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ProGaudi.Tarantool.Client.Model;
 using ProGaudi.Tarantool.Client.Model.Enums;
 using System.Collections.Generic;
+using MyTCPLib;
 
 namespace ConsoleServer
 {

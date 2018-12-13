@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPClient", "TCPClient\TCPC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarantoolTest", "TarantoolTest\TarantoolTest.csproj", "{DBED9228-CFF1-4EB6-BE35-295B0E5D6220}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTCPLib", "MyTCPLib\MyTCPLib.csproj", "{3D1AF2B9-5580-4C0F-AF99-D51745351A50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DBED9228-CFF1-4EB6-BE35-295B0E5D6220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBED9228-CFF1-4EB6-BE35-295B0E5D6220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBED9228-CFF1-4EB6-BE35-295B0E5D6220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1AF2B9-5580-4C0F-AF99-D51745351A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1AF2B9-5580-4C0F-AF99-D51745351A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1AF2B9-5580-4C0F-AF99-D51745351A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1AF2B9-5580-4C0F-AF99-D51745351A50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 using System;
 using System.Net.Sockets;
 using System.Text;
-using ConsoleServer;
+using MyTCPLib;
 using System.Collections.Generic;
 
 namespace ConsoleClient
