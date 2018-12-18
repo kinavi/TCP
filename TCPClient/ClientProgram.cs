@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using MyTCPLib;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ConsoleClient
 {
@@ -12,7 +13,7 @@ namespace ConsoleClient
         const int port = 8888;
         const string address = "127.0.0.1";
 
-        private List<Category> categories;
+        //private List<Category> categories;
 
         static void Main(string[] args)
         {
@@ -46,7 +47,7 @@ namespace ConsoleClient
                                 if (stream.DataAvailable)
                                 {
                                     Console.WriteLine("Сервер говорит!");
-                                    List<Category> categories = (List<Category>)formatter.Deserialize(stream);
+                                    ObservableCollection<Category> categories = (ObservableCollection<Category>)formatter.Deserialize(stream);
                                     Console.WriteLine("Категории: ");
                                     foreach (Category c in categories)
                                     {

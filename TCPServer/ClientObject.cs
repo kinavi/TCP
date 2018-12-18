@@ -8,6 +8,7 @@ using ProGaudi.Tarantool.Client.Model;
 using ProGaudi.Tarantool.Client.Model.Enums;
 using System.Collections.Generic;
 using MyTCPLib;
+using System.Collections.ObjectModel;
 
 namespace ConsoleServer
 {
@@ -19,12 +20,13 @@ namespace ConsoleServer
             client = tcpClient;
         }
 
-        private List<Category> categories = new List<Category>();
+        ObservableCollection<Category> categories = new ObservableCollection<Category>();
 
         private string menu = "\nМеню:\n 1 - Получить список категорий. \n";
 
         public void Process()
         {
+            Console.WriteLine("Начало контакта");
             NetworkStream stream = null;
             BinaryFormatter formatter = new BinaryFormatter();
             ClinetMessage clinetMessage;
@@ -70,6 +72,7 @@ namespace ConsoleServer
                 if (client != null)
                     client.Close();
             }
+            Console.WriteLine("Конец контакта");
         }
 
         async Task RequestAllCategories()
@@ -90,7 +93,7 @@ namespace ConsoleServer
 
                 if (categories.Count == 0)
                 {
-                    categories = new List<Category>();
+                    categories = new ObservableCollection<Category>();
 
                     foreach (var item in data.Data)
                     {
