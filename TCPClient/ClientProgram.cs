@@ -47,7 +47,7 @@ namespace ConsoleClient
                                 if (stream.DataAvailable)
                                 {
                                     Console.WriteLine("Сервер говорит!");
-                                    ObservableCollection<Category> categories = (ObservableCollection<Category>)formatter.Deserialize(stream);
+                                    List<Category> categories = (List<Category>)formatter.Deserialize(stream);
                                     Console.WriteLine("Категории: ");
                                     foreach (Category c in categories)
                                     {

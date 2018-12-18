@@ -20,7 +20,7 @@ namespace ConsoleServer
             client = tcpClient;
         }
 
-        ObservableCollection<Category> categories = new ObservableCollection<Category>();
+        List<Category> categories = new List<Category>();
 
         private string menu = "\nМеню:\n 1 - Получить список категорий. \n";
 
@@ -79,6 +79,7 @@ namespace ConsoleServer
         {
             using (var box = await Box.Connect("localhost:3301"))
             {
+                Console.WriteLine("Подключение к базе");
                 categories.Clear();
 
                 var schema = box.GetSchema();
@@ -93,10 +94,11 @@ namespace ConsoleServer
 
                 if (categories.Count == 0)
                 {
-                    categories = new ObservableCollection<Category>();
+                    categories = new List<Category>();
 
                     foreach (var item in data.Data)
                     {
+                        Console.WriteLine("{0} - {1}",item.Item1, item.Item2);
                         categories.Add(new Category { id = item.Item1, Name = item.Item2 });
                     }
                 }
